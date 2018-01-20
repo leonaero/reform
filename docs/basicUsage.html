@@ -1,0 +1,121 @@
+<html lang="en"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Basic usage · ReForm</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Basic usage · ReForm"/><meta property="og:type" content="website"/><meta property="og:url" content="https://astrocoders.com/reform/index.html"/><meta property="og:description" content="A basic usage of ReForm looks like this:"/><link rel="shortcut icon" href="/reform/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://astrocoders.com/blog/atom.xml" title="ReForm Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://astrocoders.com/blog/feed.xml" title="ReForm Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/reform/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/reform/"><img class="logo" src="/reform/img/reform.svg"/><h2 class="headerTitle">ReForm</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/reform/docs/installation.html" target="_self">Docs</a></li><li><a href="/reform/docs/schema.html" target="_self">API</a></li><li><a href="/reform/en/help.html" target="_self">Help</a></li><li><a href="/reform/blog" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Usage</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Setting up</h3><ul><li class="navListItem"><a class="navItem" href="/reform/docs/installation.html">Installation</a></li></ul></div><div class="navGroup navGroupActive"><h3>Usage</h3><ul><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/reform/docs/basicUsage.html">Basic usage</a></li></ul></div><div class="navGroup navGroupActive"><h3>API</h3><ul><li class="navListItem"><a class="navItem" href="/reform/docs/schema.html">Schemas</a></li><li class="navListItem"><a class="navItem" href="/reform/docs/i18n.html">I18N</a></li></ul></div></div></section></div><script>
+          var toggler = document.getElementById('navToggler');
+          var nav = document.getElementById('docsNav');
+          toggler.onclick = function() {
+            nav.classList.toggle('docsSliderActive');
+          };
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1>Basic usage</h1></header><article><div><span><p>A basic usage of ReForm looks like this:</p>
+<p>First, create a param module that will be passed to the functor:</p>
+<pre><code class="hljs css reason"><span class="hljs-keyword">module</span> SignUpFormParams = {
+  <span class="hljs-comment">/* Define the form state */</span>
+  <span class="hljs-keyword">type</span> state = {
+    password: <span class="hljs-built_in">string</span>,
+    confirm: <span class="hljs-built_in">string</span>,
+    email: <span class="hljs-built_in">string</span>
+  };
+
+  <span class="hljs-comment">/* Defined the field types, used for validation and change handling */</span>
+  <span class="hljs-keyword">type</span> fields = [ | <span class="hljs-string">`password | `</span>email | <span class="hljs-string">`confirmPassword];
+
+  /* Now teach ReForm how to get and set your fields given the types */
+  /* The syntax goes (field, getter, setter) */
+  let lens = [
+    (`</span>email, <span class="hljs-function">(<span class="hljs-params">s</span>) =&gt;</span> s.email, <span class="hljs-function">(<span class="hljs-params">s, email</span>) =&gt;</span> { ...s, email }),
+    <span class="hljs-function">(<span class="hljs-params">`password, (<span class="hljs-params">s</span>) =&gt; s.password, (<span class="hljs-params">s, password</span>) =&gt; { ...s, password }</span>),
+    (<span class="hljs-params">`confirmPassword, (<span class="hljs-params">s</span>) =&gt; s.confirmPassword, (<span class="hljs-params">s, confirmPassword</span>) =&gt; { ...s, confirmPassword }</span>),
+  ];
+};
+</span></code></pre>
+<p>Now you can generate the actual form container component:</p>
+<pre><code class="hljs css reason"><span class="hljs-attribute">module SignUpFormContainer</span> = ReForm.Create(SignUpFormParams);
+</code></pre>
+<p>After creating the container module, you can use it as a React component:</p>
+<pre><code class="hljs css reason"><span class="hljs-keyword">module</span> SignUpFormContainer = ReForm.Create(SignUpFormParams);
+
+let defaults = (defaultValue, optional) =&gt; switch(optional) {
+  | Some(value) =&gt; value
+  | <span class="hljs-function"><span class="hljs-params">None</span> =&gt;</span> defaultValue
+};
+
+<span class="hljs-keyword">let</span> component = ReasonReact.statelessComponent(<span class="hljs-string">"SignUp"</span>);
+
+<span class="hljs-keyword">let</span> make = <span class="hljs-function">(<span class="hljs-params">_children</span>) =&gt;</span> {
+  ...component,
+  render: _self =&gt; {
+    &lt;SignUpFormContainer
+      onSubmit=<span class="hljs-function">(<span class="hljs-params">(<span class="hljs-params">~values, ~setError, ~setSubmitting</span>) =&gt; doWhateverYouWant(<span class="hljs-params">~values, ~setError, ~setSubmitting</span>)</span>)
+      <span class="hljs-params">schema</span>=[
+        (<span class="hljs-params">`email, Email</span>),
+        (<span class="hljs-params">`password, Required</span>),
+        (<span class="hljs-params">`confirmPassword, Custom(<span class="hljs-params">s =&gt; s.password == s.confirmPassword ? None : Some(<span class="hljs-params">"Passwords don't match"</span>)</span>)</span>)
+      ]
+    &gt;
+    ...(<span class="hljs-params">(<span class="hljs-params">~form, ~handleValidation <span class="hljs-keyword">as</span> _, ~handleChange, ~handleSubmit, ~getErrorForField</span>) =&gt;
+      <span class="hljs-comment">/* handleDomFormSubmit helps dealing with the DOM event for Web */</span>
+      &lt;form onSubmit=ReForm.Helpers.handleDomFormSubmit(<span class="hljs-params">handleSubmit</span>)&gt;
+       &lt;label&gt;
+         &lt;span&gt; (<span class="hljs-params">"Email:" |&gt; ReasonReact.stringToElement</span>) &lt;/span&gt;
+         &lt;input
+           value=form.values.email
+           onChange=(<span class="hljs-params">
+             ReForm.Helpers.handleDomFormChange(<span class="hljs-params">handleChange(<span class="hljs-params">`email</span>)</span>)
+           </span>)
+         /&gt;
+         &lt;p&gt;
+           (<span class="hljs-params">
+             getErrorForField(<span class="hljs-params">`email</span>)
+             |&gt; defaults(<span class="hljs-params">""</span>)
+             |&gt; ReasonReact.stringToElement
+           </span>)
+         &lt;/p&gt;
+       &lt;/label&gt;
+       &lt;label&gt;
+         &lt;span&gt; (<span class="hljs-params">"Password:" |&gt; ReasonReact.stringToElement</span>) &lt;/span&gt;
+         &lt;input
+           _type="password"
+           value=form.values.password
+           onChange=(<span class="hljs-params">
+             ReForm.Helpers.handleDomFormChange(<span class="hljs-params">
+               handleChange(<span class="hljs-params">`password</span>)
+             </span>)
+           </span>)
+         /&gt;
+         &lt;p&gt;
+           (<span class="hljs-params">
+             getErrorForField(<span class="hljs-params">`password</span>)
+             |&gt; defaults(<span class="hljs-params">""</span>)
+             |&gt; ReasonReact.stringToElement
+           </span>)
+         &lt;/p&gt;
+       &lt;/label&gt;
+       &lt;label&gt;
+         &lt;span&gt;
+           (<span class="hljs-params">"Confirm password:" |&gt; ReasonReact.stringToElement</span>)
+         &lt;/span&gt;
+         &lt;input
+           _type="password"
+           value=form.values.confirmPassword
+           onChange=(<span class="hljs-params">
+             ReForm.Helpers.handleDomFormChange(<span class="hljs-params">
+               handleChange(<span class="hljs-params">`confirmPassword</span>)
+             </span>)
+           </span>)
+         /&gt;
+         &lt;p&gt;
+           (<span class="hljs-params">
+             getErrorForField(<span class="hljs-params">`confirmPassword</span>)
+             |&gt; defaults(<span class="hljs-params">""</span>)
+             |&gt; ReasonReact.stringToElement
+           </span>)
+         &lt;/p&gt;
+       &lt;/label&gt;
+       &lt;button _type="submit"&gt;
+         (<span class="hljs-params">"Submit" |&gt; ReasonReact.stringToElement</span>)
+       &lt;/button&gt;
+      &lt;/form&gt;
+    </span>)
+    &lt;/<span class="hljs-params">SignUpFormContainer</span>&gt;
+  }
+}
+</span></code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="installation.html">← Installation</a><a class="docs-next button" href="schema.html">Schemas →</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/reform/" class="nav-home"><img src="/reform/img/reform.svg" alt="ReForm" width="66" height="58"/></a><div><h5>Docs</h5><a href="/reform/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/reform/docs/en/doc2.html">Guides (or other categories)</a><a href="/reform/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/reform/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank">Twitter</a></div><div><h5>More</h5><a href="/reform/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" href="https://github.com/Astrocoders/reform" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://code.facebook.com/projects/" target="_blank" class="fbOpenSource"><img src="/reform/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2018 Facebook Inc.</section></footer></div></body></html>
