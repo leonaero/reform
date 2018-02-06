@@ -50,7 +50,7 @@ let defaults = (defaultValue, optional) =&gt; switch(optional) {
         (<span class="hljs-params">`confirmPassword, Custom(<span class="hljs-params">s =&gt; s.password == s.confirmPassword ? None : Some(<span class="hljs-params">"Passwords don't match"</span>)</span>)</span>)
       ]
     &gt;
-    ...(<span class="hljs-params">(<span class="hljs-params">~form, ~handleValidation <span class="hljs-keyword">as</span> _, ~handleChange, ~handleSubmit, ~getErrorForField</span>) =&gt;
+    ...(<span class="hljs-params">(<span class="hljs-params">{form, handleChange, handleSubmit, getErrorForField}</span>) =&gt;
       <span class="hljs-comment">/* handleDomFormSubmit helps dealing with the DOM event for Web */</span>
       &lt;form onSubmit=ReForm.Helpers.handleDomFormSubmit(<span class="hljs-params">handleSubmit</span>)&gt;
        &lt;label&gt;
