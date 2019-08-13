@@ -2,23 +2,23 @@
 <rss version="2.0">
     <channel>
         <title>ReForm Blog</title>
-        <link>https://astrocoders.com/blog</link>
+        <link>https://astrocoders.com/reform/blog</link>
         <description>The best place to stay up-to-date with the latest ReForm news and events.</description>
         <lastBuildDate>Thu, 01 Jan 1970 00:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
             <title>ReForm Blog</title>
-            <url>https://astrocoders.comundefined</url>
-            <link>https://astrocoders.com/blog</link>
+            <url>https://astrocoders.com/reform/undefined</url>
+            <link>https://astrocoders.com/reform/blog</link>
         </image>
-        <copyright>Copyright © 2018Astrocodres</copyright>
+        <copyright>Copyright © 2019Astrocodres</copyright>
         <item>
             <title><![CDATA[Stable release out!]]></title>
-            <link>https://astrocoders.com/blog/2018/28/01/annoucement.html</link>
-            <guid>https://astrocoders.com/blog/2018/28/01/annoucement.html</guid>
+            <link>https://astrocoders.com/reform/blog/2018/28/01/annoucement.html</link>
+            <guid>https://astrocoders.com/reform/blog/2018/28/01/annoucement.html</guid>
             <pubDate>Thu, 01 Jan 1970 00:00:00 GMT</pubDate>
-            <description><![CDATA[After some churn to decide a better thin yet functional API we are glad to roll out this version public!]]></description>
+            <description><![CDATA[<p>After some churn to decide a better thin yet functional API we are glad to roll out this version public!</p> ]]></description>
         </item>
     </channel>
 </rss>

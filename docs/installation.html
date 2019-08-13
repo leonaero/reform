@@ -1,15 +1,74 @@
-<html lang="en"><head><meta charset="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Installation · ReForm</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta property="og:title" content="Installation · ReForm"/><meta property="og:type" content="website"/><meta property="og:url" content="https://astrocoders.com/reform/index.html"/><meta property="og:description" content="Add via yarn"/><link rel="shortcut icon" href="/reform/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://astrocoders.com/blog/atom.xml" title="ReForm Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://astrocoders.com/blog/feed.xml" title="ReForm Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/reform/css/main.css"/></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/reform/"><h2 class="headerTitle">ReForm</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li><a href="/reform/docs/installation.html" target="_self">Docs</a></li><li><a href="/reform/docs/schema.html" target="_self">API</a></li><li><a href="/reform/en/help.html" target="_self">Help</a></li><li><a href="/reform/blog" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Setting up</span></h2></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Setting up</h3><ul><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/reform/docs/installation.html">Installation</a></li></ul></div><div class="navGroup navGroupActive"><h3>Usage</h3><ul><li class="navListItem"><a class="navItem" href="/reform/docs/basicUsage.html">Basic usage</a></li></ul></div><div class="navGroup navGroupActive"><h3>API</h3><ul><li class="navListItem"><a class="navItem" href="/reform/docs/schema.html">Schemas</a></li><li class="navListItem"><a class="navItem" href="/reform/docs/i18n.html">I18N</a></li></ul></div></div></section></div><script>
-          var toggler = document.getElementById('navToggler');
-          var nav = document.getElementById('docsNav');
-          toggler.onclick = function() {
-            nav.classList.toggle('docsSliderActive');
-          };
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1>Installation</h1></header><article><div><span><p>Add via yarn</p>
-<pre><code class="hljs">yarn <span class="hljs-keyword">add</span><span class="bash"> bs-reform
-</span></code></pre>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Installation · ReForm</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Add via yarn"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Installation · ReForm"/><meta property="og:type" content="website"/><meta property="og:url" content="https://astrocoders.com/reform/index.html"/><meta property="og:description" content="Add via yarn"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/reform/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://astrocoders.com/reform/blog/atom.xml" title="ReForm Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://astrocoders.com/reform/blog/feed.xml" title="ReForm Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/reform/js/scrollSpy.js"></script><link rel="stylesheet" href="/reform/css/main.css"/><script src="/reform/js/codetabs.js"></script></head><body class="sideNavVisible"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/reform/"><h2 class="headerTitle">ReForm</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive siteNavItemActive"><a href="/reform/docs/installation.html" target="_self">Docs</a></li><li class="siteNavGroupActive"><a href="/reform/docs/schema.html" target="_self">API</a></li><li class=""><a href="/reform/help.html" target="_self">Help</a></li><li class=""><a href="/reform/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Setting up</span></h2></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Setting up</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/reform/docs/installation.html">Installation</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Usage</h3><ul class=""><li class="navListItem"><a class="navItem" href="/reform/docs/basicUsage.html">Basic usage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API</h3><ul class=""><li class="navListItem"><a class="navItem" href="/reform/docs/schema.html">Schemas</a></li><li class="navListItem"><a class="navItem" href="/reform/docs/i18n.html">i18n</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Installation</h1></header><article><div><span><p>Add via yarn</p>
+<pre><code class="hljs"><span class="hljs-symbol">yarn</span> <span class="hljs-keyword">add </span><span class="hljs-keyword">bs-reform </span>reschema
+</code></pre>
 <p>Then add to your bs-dependencies in bsconfig.json</p>
 <pre><code class="hljs"><span class="hljs-string">"bs-dependencies"</span>: [
-  <span class="hljs-string">"bs-reform"</span>
+  <span class="hljs-string">"bs-reform"</span>,
+  <span class="hljs-string">"reschema"</span>
 ]
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="basicUsage.html">Basic usage →</a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/reform/" class="nav-home"><img src="/reform/img/reform.svg" alt="ReForm" width="66" height="58"/></a><div><h5>Docs</h5><a href="/reform/docs/installation.html">Getting Started</a><a href="/reform/docs/schema.html">API Reference</a></div><div><h5>Community</h5><a href="/reform/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank">Stack Overflow</a><a href="https://discord.gg/E75E2Tz">Project Chat</a></div><div><h5>More</h5><a href="/reform/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" href="https://github.com/Astrocoders/reform" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 Astrocoders.</section></footer></div></body></html>
+<p>Now add lenses</p>
+<pre><code class="hljs">yarn <span class="hljs-keyword">add</span><span class="bash"> -D lenses-ppx</span>
+</code></pre>
+<p>And update your bs-dependencies</p>
+<pre><code class="hljs"><span class="hljs-string">"ppx-flags"</span>: [
+  <span class="hljs-string">"lenses-ppx/ppx"</span>
+]
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/reform/docs/basicUsage.html"><span>Basic usage</span><span class="arrow-next"> →</span></a></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/reform/" class="nav-home"><img src="/reform/img/reform.svg" alt="ReForm" width="66" height="58"/></a><div><h5>Docs</h5><a href="/reform/docs/installation.html">Getting Started</a><a href="/reform/docs/schema.html">API Reference</a></div><div><h5>Community</h5><a href="/reform/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank">Stack Overflow</a><a href="https://discord.gg/E75E2Tz">Project Chat</a></div><div><h5>More</h5><a href="/reform/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" href="https://github.com/Astrocoders/reform" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2019 Astrocoders.</section></footer></div></body></html>

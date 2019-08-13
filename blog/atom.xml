@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://astrocoders.com/blog</id>
+    <id>https://astrocoders.com/reform/blog</id>
     <title>ReForm Blog</title>
     <updated>1970-01-01T00:00:00Z</updated>
     <generator>Feed for Node.js</generator>
-    <link rel="alternate" href="https://astrocoders.com/blog"/>
+    <link rel="alternate" href="https://astrocoders.com/reform/blog"/>
     <subtitle>The best place to stay up-to-date with the latest ReForm news and events.</subtitle>
-    <logo>https://astrocoders.comundefined</logo>
-    <rights>Copyright © 2018Astrocodres</rights>
+    <logo>https://astrocoders.com/reform/undefined</logo>
+    <rights>Copyright © 2019Astrocodres</rights>
     <entry>
         <title type="html"><![CDATA[Stable release out!]]></title>
-        <id>https://astrocoders.com/blog/2018/28/01/annoucement.html</id>
-        <link href="https://astrocoders.com/blog/2018/28/01/annoucement.html">
+        <id>https://astrocoders.com/reform/blog/2018/28/01/annoucement.html</id>
+        <link href="https://astrocoders.com/reform/blog/2018/28/01/annoucement.html">
         </link>
         <updated>1970-01-01T00:00:00Z</updated>
-        <summary type="html"><![CDATA[After some churn to decide a better thin yet functional API we are glad to roll out this version public!]]></summary>
+        <summary type="html"><![CDATA[<p>After some churn to decide a better thin yet functional API we are glad to roll out this version public!</p> ]]></summary>
         <author>
             <name>Gabriel R. Abreu</name>
-            <uri>http://twitter.com/_gabrielrubens</uri>
+            <uri>http://twitter.com/fakenickels</uri>
         </author>
     </entry>
 </feed>
