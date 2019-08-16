@@ -65,8 +65,8 @@ module Make = (Config: Config) => {
   };
 
   type onSubmitAPI = {
-    send: action => unit,
     state,
+    setFormState: formState => unit,
   };
 
   let getInitialFieldsState: Validation.schema => array((field, fieldState)) =
@@ -116,7 +116,12 @@ module Make = (Config: Config) => {
         | Submit =>
           UpdateWithSideEffects(
             {...state, formState: Submitting},
-            self => onSubmit({send: self.send, state: self.state}),
+            self =>
+              onSubmit({
+                setFormState: formState =>
+                  self.send(SetFormState(formState)),
+                state: self.state,
+              }),
           )
         | TrySubmit =>
           SideEffects(
@@ -134,7 +139,11 @@ module Make = (Config: Config) => {
                     (field, Error(errorMessage))
                   );
                 self.send(SetFieldsState(newFieldsState));
-                onSubmitFail({send: self.send, state: self.state});
+                onSubmitFail({
+                  setFormState: formState =>
+                    self.send(SetFormState(formState)),
+                  state: self.state,
+                });
                 self.send(SetFormState(Errored));
               };
               None;
