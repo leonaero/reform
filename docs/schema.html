@@ -70,14 +70,52 @@ Validators are type safe and only accept the field of the type they are meant to
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="novalidationlensesfielda"></a><a href="#novalidationlensesfielda" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>NoValidation(Lenses.field('a))</h3>
 <p>Does not apply any validation in the field</p>
-<h3><a class="anchor" aria-hidden="true" id="stringnonemptylensesfieldstring-1"></a><a href="#stringnonemptylensesfieldstring-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>StringNonEmpty(Lenses.field(string))</h3>
+<pre><code class="hljs css language-reason">let schema = ReSchema.Validation([<span class="hljs-string">|</span>
+  NoValidation(Lenses.Age),
+<span class="hljs-string">|]);</span>
+</code></pre>
 <h3><a class="anchor" aria-hidden="true" id="stringregexplensesfieldstring-string"></a><a href="#stringregexplensesfieldstring-string" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>StringRegExp(Lenses.field(string), string)</h3>
+<p>Set a custom RegExp to match the value</p>
+<pre><code class="hljs css language-reason">let schema = ReSchema.Validation([<span class="hljs-string">|</span>
+  StringRegExp(Lenses.Name, <span class="hljs-string">"^[a-zA-Z\s]*$"</span>),
+<span class="hljs-string">|]);</span>
+</code></pre>
 <h3><a class="anchor" aria-hidden="true" id="stringminlensesfieldstring-int"></a><a href="#stringminlensesfieldstring-int" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>StringMin(Lenses.field(string), int)</h3>
+<p>Set a minimum length for the string</p>
+<pre><code class="hljs css language-reason">let schema = ReSchema.Validation([<span class="hljs-string">|</span>
+  StringMin(Lenses.Name, <span class="hljs-number">3</span>),
+<span class="hljs-string">|]);</span>
+</code></pre>
 <h3><a class="anchor" aria-hidden="true" id="stringmaxlensesfieldstring-int"></a><a href="#stringmaxlensesfieldstring-int" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>StringMax(Lenses.field(string), int)</h3>
+<p>Set a maximum length for the string</p>
+<pre><code class="hljs css language-reason">let schema = ReSchema.Validation([<span class="hljs-string">|</span>
+  StringMax(Lenses.Name, <span class="hljs-number">20</span>),
+<span class="hljs-string">|]);</span>
+</code></pre>
 <h3><a class="anchor" aria-hidden="true" id="intminlensesfieldint-int"></a><a href="#intminlensesfieldint-int" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>IntMin(Lenses.field(int), int)</h3>
+<p>Set a minumum value for the int</p>
+<pre><code class="hljs css language-reason">let schema = ReSchema.Validati<span class="hljs-meta">on(</span>[|
+  <span class="hljs-meta">In</span><span class="hljs-meta">tMin(</span>Lenses.Age, 21),
+|]);
+</code></pre>
 <h3><a class="anchor" aria-hidden="true" id="intmaxlensesfieldint-int"></a><a href="#intmaxlensesfieldint-int" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>IntMax(Lenses.field(int), int)</h3>
+<p>Set a maximum value for the int</p>
+<pre><code class="hljs css language-reason">let schema = ReSchema.Validati<span class="hljs-meta">on(</span>[|
+  <span class="hljs-meta">In</span><span class="hljs-meta">tMax(</span>Leses.Age, 60),
+|]);
+</code></pre>
 <h3><a class="anchor" aria-hidden="true" id="floatminlensesfieldfloat-float"></a><a href="#floatminlensesfieldfloat-float" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>FloatMin(Lenses.field(float), float)</h3>
+<p>Set a minimum value for the float</p>
+<pre><code class="hljs css language-reason">let schema = ReSchema.Validation([<span class="hljs-string">|</span>
+  FloatMin(Lenses.Price, <span class="hljs-number">1.0</span>),
+<span class="hljs-string">|]);</span>
+</code></pre>
 <h3><a class="anchor" aria-hidden="true" id="floatmaxlensesfieldfloat-float"></a><a href="#floatmaxlensesfieldfloat-float" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>FloatMax(Lenses.field(float), float)</h3>
+<p>Set a maximum value for the float</p>
+<pre><code class="hljs css language-reason">let schema = ReSchema.Validation([<span class="hljs-string">|</span>
+  FloatMax(Lenses.Price, <span class="hljs-number">100.0</span>),
+<span class="hljs-string">|]);</span>
+</code></pre>
 <h3><a class="anchor" aria-hidden="true" id="customlensesfielda-lensesstate-fieldstate"></a><a href="#customlensesfielda-lensesstate-fieldstate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Custom(Lenses.field('a), Lenses.state =&gt; fieldState)</h3>
 <p>Useful for when you need to build your own custom logic.
 You can validate with props your component received - this is why we let you pass the schema as prop and not in the functor - or whatever you need.</p>
