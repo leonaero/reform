@@ -167,17 +167,9 @@ module Make = (Config: Config) => {
           (),
         ) => {
       let fieldInterface = useField(field);
-      React.useMemo3(
-        () =>
-          fieldInterface
-          ->Belt.Option.map(render)
-          ->Belt.Option.getWithDefault(renderOnMissingContext),
-        (
-          Belt.Option.(fieldInterface->map(({error}) => error)),
-          Belt.Option.(fieldInterface->map(({value}) => value)),
-          Belt.Option.(fieldInterface->map(({state}) => state)),
-        ),
-      );
+      fieldInterface
+      ->Belt.Option.map(render)
+      ->Belt.Option.getWithDefault(renderOnMissingContext);
     };
   };
 
