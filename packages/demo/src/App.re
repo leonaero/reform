@@ -2,30 +2,43 @@
 let make = (~message) => {
   let url = ReasonReactRouter.useUrl();
 
-  <ReasonApolloHooks.ApolloProvider client=Apollo.client>
-    <div className="App">
-      <div className="App-header">
-        <img
-          src="https://avatars2.githubusercontent.com/u/14410490?s=200&v=4"
-          className="App-logo"
-          alt="logo"
-        />
-        <h2> {React.string(message)} </h2>
-      </div>
-      <h1> {ReasonReact.string("ReFormNext demo")} </h1>
-      <a href="/new-post"> "New post form demo "->React.string </a>
-      <br />
-      <a href="/fav-colors"> "Form with array field demo"->React.string </a>
-      <div style={ReactDOMRe.Style.make(~padding="100px", ())}>
-        {switch (url.path) {
-         | ["new-post"] => <PostAddNext />
-         | ["fav-colors"] => <FavoriteColorsForm />
-         | _ =>
-           <p className="App-intro">
-             {ReasonReact.string("Say hello to ReForm")}
-           </p>
-         }}
-      </div>
+  <div className="p-5">
+    <div className="flex align-center justify-center">
+      <h2 className="text-2xl"> {React.string(message)} </h2>
     </div>
-  </ReasonApolloHooks.ApolloProvider>;
+    <ul className="flex mt-6">
+      <li className="mr-6">
+        <a className="text-blue-500 hover:text-blue-800" href="/new-post">
+          "New post form demo "->React.string
+        </a>
+      </li>
+      <li className="mr-6">
+        <a className="text-blue-500 hover:text-blue-800" href="/fav-colors">
+          "Form with array field demo"->React.string
+        </a>
+      </li>
+      <li className="mr-6">
+        <a className="text-blue-500 hover:text-blue-800" href="/todo">
+          "Form with array todo demo"->React.string
+        </a>
+      </li>
+      <li className="mr-6">
+        <a className="text-blue-500 hover:text-blue-800" href="/reschema">
+          "Vanilla ReSchema"->React.string
+        </a>
+      </li>
+    </ul>
+    <div style={ReactDOMRe.Style.make(~padding="100px", ())}>
+      {switch (url.path) {
+       | ["reschema"] => <VanillaReSchema />
+       | ["new-post"] => <PostAddNext />
+       | ["fav-colors"] => <FavoriteColorsForm />
+       | ["todo"] => <TodoListForm />
+       | _ =>
+         <p className="App-intro">
+           {ReasonReact.string("Say hello to ReForm")}
+         </p>
+       }}
+    </div>
+  </div>;
 };

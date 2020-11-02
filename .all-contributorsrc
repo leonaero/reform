@@ -127,6 +127,44 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Freddy03h",
+      "name": "Freddy Harris",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1412159?v=4",
+      "profile": "https://freddy03h.github.io",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "arthurbarroso",
+      "name": "arthur",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/48794198?v=4",
+      "profile": "https://github.com/arthurbarroso",
+      "contributions": [
+        "doc",
+        "code"
+      ]
+    },
+    {
+      "login": "vmarcosp",
+      "name": "Marcos Oliveira",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/20327229?v=4",
+      "profile": "http://vmarcosp.dribbble.com",
+      "contributions": [
+        "doc",
+        "design"
+      ]
+    },
+    {
+      "login": "celsobonutti",
+      "name": "Celso Bonutti",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/12688694?v=4",
+      "profile": "http://cel.so",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

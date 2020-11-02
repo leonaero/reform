@@ -14,9 +14,11 @@ module StateLenses = [%lenses
   }
 ];
 
-open BsReform;
-
 module Form = ReForm.Make(StateLenses);
+
+type meta =
+  | Mask(string)
+  | Slider;
 
 [@react.component]
 let make = () => {
@@ -31,23 +33,26 @@ let make = () => {
   }: Form.api =
     Form.use(
       ~schema={
-        Form.Validation.Schema([|
-          StringRegExp(Name, "^[a-zA-Z\s]*$"),
-          Custom(
-            FavoriteColors,
-            ({favoriteColors}) => {
-              let length = Array.length(favoriteColors);
+        Form.Validation.(
+          Schema(
+            regExp(~matches="^[a-zA-Z\s]*$", ~meta=Mask("000"), Name)
+            + custom(
+                ~meta=Mask("dkljfas"),
+                ({favoriteColors}) => {
+                  let length = Array.length(favoriteColors);
 
-              length < 0
-              || Belt.Array.some(favoriteColors, favColor =>
-                   Js.String.length(favColor.hex) == 0
-                 )
-                ? Error("Invalid colors") : Valid;
-            },
-          ),
-          FloatMax(OpacityOfColors, 1.0),
-          IntMax(NumberOfFavoriteColors, 3),
-        |]);
+                  length < 0
+                  || Belt.Array.some(favoriteColors, favColor =>
+                       Js.String.length(favColor.hex) == 0
+                     )
+                    ? Error("Invalid colors") : Valid;
+                },
+                FavoriteColors,
+              )
+            + float(~min=1.0, ~meta=Slider, OpacityOfColors)
+            + int(~max=3, NumberOfFavoriteColors),
+          )
+        );
       },
       ~onSubmit=({state}) => None,
       ~initialState={
@@ -68,7 +73,7 @@ let make = () => {
       <span> {"Name:" |> ReasonReact.string} </span>
       <input
         value={state.values.name}
-        onChange={BsReform.Helpers.handleChange(handleChange(Name))}
+        onChange={ReForm.Helpers.handleChange(handleChange(Name))}
       />
       <p>
         {getFieldError(Field(Name))
@@ -87,7 +92,7 @@ let make = () => {
              <span> {"Name:" |> ReasonReact.string} </span>
              <input
                value={favColor.name}
-               onChange={BsReform.Helpers.handleChange(name =>
+               onChange={ReForm.Helpers.handleChange(name =>
                  arrayUpdateByIndex(
                    ~field=FavoriteColors,
                    ~index,
@@ -100,7 +105,7 @@ let make = () => {
              <span> {"Hex:" |> ReasonReact.string} </span>
              <input
                value={favColor.hex}
-               onChange={Helpers.handleChange(hex =>
+               onChange={ReForm.Helpers.handleChange(hex =>
                  arrayUpdateByIndex(
                    ~field=FavoriteColors,
                    ~index,
@@ -121,7 +126,9 @@ let make = () => {
       <input
         value={string_of_int(state.values.numberOfFavoriteColors)}
         type_="number"
-        onChange={Helpers.handleChange(handleChange(NumberOfFavoriteColors))}
+        onChange={ReForm.Helpers.handleChange(
+          handleChange(NumberOfFavoriteColors),
+        )}
       />
       <p>
         {getFieldError(Field(NumberOfFavoriteColors))
@@ -135,7 +142,7 @@ let make = () => {
         value={Js.Float.toString(state.values.opacityOfColors)}
         type_="number"
         step=0.1
-        onChange={Helpers.handleChange(handleChange(OpacityOfColors))}
+        onChange={ReForm.Helpers.handleChange(handleChange(OpacityOfColors))}
       />
       <p>
         {getFieldError(Field(OpacityOfColors))

@@ -1,16 +1,20 @@
-# ReForm.re
 [![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors)
 
-Reasonably making forms sound good
-
-- [Installation](#installation)
-- [Features](#features)
-- [What this is and why](#what-this-is-and-why)
-- [Quick usage](#usage)
-
-## Docs
-
-Check our Docusaurus https://astrocoders.dev/reform
+<p align="center">
+  <br />
+  <img src="./assets/logo-readme.svg" width="600" /> 
+  <br />
+</p>
+<p align="center">
+ <a href="#installation">Installation</a> • 
+ <a target="_blank" href="https://astrocoders.dev/reform">Official Docs</a> • 
+ <a href="#features">Features</a> •
+ <a href="#usage">Usage</a> 
+</p>
+<br/>
+<br/>
+<hr />
+<br/>
 
 ## Installation
 
@@ -41,6 +45,118 @@ And update your bsconfig.json with `ppx-flags`
 ]
 ```
 
+## Quick guide
+
+<details>
+  <summary>Show</summary>
+  
+```reason
+open BsReform;
+
+module StateLenses = [%lenses
+  type state = {
+    description: string,
+    title: string,
+    acceptTerms: bool,
+  }
+];
+
+module PostAddForm = ReForm.Make(StateLenses);
+
+
+[@react.component]
+let make = () => {
+  let form: PostAddForm.api =
+    PostAddForm.use(
+      ~validationStrategy=OnDemand,
+      ~schema={
+        PostAddForm.Validation.(Schema(
+          string(~min=20, ~minError="Title needs to be greater than 20", Title)
+          + nonEmpty(Description),
+          + true_(~error="You must accept the terms", AcceptTerms)
+        |]));
+      },
+      ~onSubmit=
+        ({state}) => {
+          Js.log2("title", state.values.description);
+          Js.log2("description", state.values.description);
+          Js.log2("acceptTerms", state.values.description);
+          None;
+        },
+      ~initialState={title: "", description: "", acceptTerms: false},
+      (),
+    );
+
+  <form
+    onSubmit={event => {
+      event->ReactEvent.Synthetic.preventDefault
+      reform.submit();
+    }}>
+
+    <input
+      type_="text"
+      placeholder="Title"
+      value=form.values.title
+      onChange={event => ReactEvent.Form.target(event)##value |> handleChange(Title)}
+    />
+
+    {form.getFieldError(Title)->Belt.mapWithDefault(React.null, React.string)}
+
+    <input
+      type_="text"
+      placeholder="Description"
+      value=form.values.description
+      onChange={event => ReactEvent.Form.target(event)##value |> handleChange(Title)}
+    />
+
+    {form.getFieldError(Description)->Belt.mapWithDefault(React.null, React.string)}
+
+    <input
+      type_="checkbox"
+      value={string_of_bool(form.values.acceptTerms)}
+      onChange={event =>
+        ReactEvent.Form.target(event)##checked |> handleChange(AcceptTerms)
+      }
+    />
+
+    {form.getFieldError(AcceptTerms)->Belt.mapWithDefault(React.null, React.string)}
+
+    <button type_="submit" disabled={form.formState == Submitting}> "Submit"->React.string </button>
+  </form>
+};
+```
+
+</details>
+
+## Installation
+
+```
+yarn add bs-reform reschema
+```
+
+Then add it to bsconfig.json
+
+```
+"bs-dependencies": [
+ "bs-reform",
+ "reschema"
+]
+```
+
+Then add lenses-ppx
+
+```
+yarn add lenses-ppx -D
+```
+
+And update your bsconfig.json with `ppx-flags`
+
+```
+"ppx-flags": [
+ "lenses-ppx/ppx"
+]
+```
+
 ## Features
 
 - Hook API
@@ -56,107 +172,37 @@ Code that deals with strongly typed forms can quickly become walls of repeated t
 We created ReForm to be both deadly simple and to make forms sound good leveraging ReasonML's powerful typesytem.
 Even the schemas we use are nothing more than constructors built-in in the language itself with a small size footprint.
 
-## Basic usage
+#### Contributing
 
-Checkout https://github.com/Astrocoders/reform/blob/master/packages/demo/src/PostAddNext.re for a more complete demo
+Requisites:
 
-```reason
-open BsReform;
+- jq
+- node
+- esy
 
-module StateLenses = [%lenses
-  type state = {
-    description: string,
-    title: string,
-    acceptTerms: bool,
-  }
-];
-module PostAddForm = ReForm.Make(StateLenses);
+Setup your env with:
 
-module FieldString = {
-  [@react.component]
-  let make = (~field, ~label) => {
-    <PostAddForm.Field
-      field
-      render={({handleChange, error, value, validate}) =>
-        <label>
-          <span> {React.string(label)} </span>
-          <input
-            value
-            onChange={Helpers.handleChange(handleChange)}
-            onBlur={_ => validate()}
-          />
-          <p> {error->Belt.Option.getWithDefault("")->React.string} </p>
-        </label>
-      }
-    />;
-  };
-};
+```
+$ esy
+```
 
-[@react.component]
-let make = () => {
-  let reform =
-    PostAddForm.use(
-      ~validationStrategy=OnDemand,
-      ~schema={
-        PostAddForm.Validation.Schema([|
-          StringMin(Title, 20),
-          StringNonEmpty(Description),
-          Custom(
-            AcceptTerms,
-            values =>
-              values.acceptTerms == false
-                ? Error("You must accept all the terms") : Valid,
-          )
-        |]);
-      },
-      ~onSubmit=
-        ({state}) => {
-          Js.log2("title", state.values.description);
-          Js.log2("description", state.values.description);
-          Js.log2("acceptTerms", state.values.description);
-          None;
-        },
-      ~initialState={title: "", description: "", acceptTerms: false},
-      (),
-    );
+Then:
 
-  <PostAddForm.Provider value=reform>
-    <form
-      onSubmit={event => {
-        ReactEvent.Synthetic.preventDefault(event);
-        reform.submit();
-      }}>
-      <FieldString field=StateLenses.Title label="Title" />
-      <FieldString field=StateLenses.Description label="Description" />
-      <PostAddForm.Field
-        field=StateLenses.AcceptTerms
-        render={({handleChange, error, value}) =>
-          <label>
-            <p>
-              <span> {"Accept terms? " |> React.string} </span>
-              <input
-                type_="checkbox"
-                value={string_of_bool(value)}
-                onChange={event =>
-                  ReactEvent.Form.target(event)##checked |> handleChange
-                }
-              />
-            </p>
-            <p> {error->Belt.Option.getWithDefault("")->React.string} </p>
-          </label>
-        }
-      />
-      {reform.state.formState == Submitting
-         ? <p> {React.string("Saving...")} </p>
-         : <button type_="submit"> {"Submit" |> React.string} </button>}
-    </form>
-  </PostAddForm.Provider>;
-};
+```
+yarn install
+```
+
+##### Running
+
+Run everything in watch mode and serve the `demo` app with:
+
+```
+make serve
 ```
 
 #### Alternatives
 
-- The great https://github.com/alexfedoseev/re-formality
+- [Formality](https://github.com/alexfedoseev/re-formality)
 
 #### Publishing
 
@@ -167,7 +213,7 @@ lerna version major|patch|minor
 and then
 
 ```
-lerna publish from-git
+lerna publish
 ```
 
 #### Support
@@ -198,6 +244,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://khoanguyen.me"><img src="https://avatars2.githubusercontent.com/u/3049054?v=4" width="100px;" alt=""/><br /><sub><b>Khoa Nguyen</b></sub></a><br /><a href="https://github.com/Astrocoders/reform/commits?author=thangngoc89" title="Code">💻</a></td>
     <td align="center"><a href="http://medson.me"><img src="https://avatars0.githubusercontent.com/u/17956325?v=4" width="100px;" alt=""/><br /><sub><b>Medson Oliveira</b></sub></a><br /><a href="https://github.com/Astrocoders/reform/commits?author=medson10" title="Code">💻</a> <a href="#ideas-medson10" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://anabastos.me"><img src="https://avatars1.githubusercontent.com/u/10088900?v=4" width="100px;" alt=""/><br /><sub><b>Ana Luiza Portello Bastos</b></sub></a><br /><a href="https://github.com/Astrocoders/reform/commits?author=anabastos" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://freddy03h.github.io"><img src="https://avatars1.githubusercontent.com/u/1412159?v=4" width="100px;" alt=""/><br /><sub><b>Freddy Harris</b></sub></a><br /><a href="https://github.com/Astrocoders/reform/issues?q=author%3AFreddy03h" title="Bug reports">🐛</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/arthurbarroso"><img src="https://avatars3.githubusercontent.com/u/48794198?v=4" width="100px;" alt=""/><br /><sub><b>arthur</b></sub></a><br /><a href="https://github.com/Astrocoders/reform/commits?author=arthurbarroso" title="Documentation">📖</a> <a href="https://github.com/Astrocoders/reform/commits?author=arthurbarroso" title="Code">💻</a></td>
+    <td align="center"><a href="http://vmarcosp.dribbble.com"><img src="https://avatars0.githubusercontent.com/u/20327229?v=4" width="100px;" alt=""/><br /><sub><b>Marcos Oliveira</b></sub></a><br /><a href="https://github.com/Astrocoders/reform/commits?author=vmarcosp" title="Documentation">📖</a> <a href="#design-vmarcosp" title="Design">🎨</a></td>
+    <td align="center"><a href="http://cel.so"><img src="https://avatars2.githubusercontent.com/u/12688694?v=4" width="100px;" alt=""/><br /><sub><b>Celso Bonutti</b></sub></a><br /><a href="https://github.com/Astrocoders/reform/commits?author=celsobonutti" title="Code">💻</a></td>
   </tr>
 </table>
 
